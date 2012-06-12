@@ -121,7 +121,7 @@ db.open(function(err, db) {
 
 /*
 
- Test using:
+ Try using:
 
      curl --verbose --no-buffer "http://localhost:1337/"
 
