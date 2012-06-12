@@ -54,30 +54,23 @@ function JsonObjectWithBase64PropertyStream(baseObject, streamProperty) {
     return stream;
 }
 
-var file;
-
 function handleRequest(req, res) {
 
+    var chunkSize = 256; // this can be greater or lower than gridfs chunk size.
     var baseObject = {id: 123, code: 200};
     var streamProperty = 'data';
 
-    var chunkSize = 256; // this can be greater or lower than gridfs chunk size.
-
     res.setHeader('Content-Type', 'application/json');
-
-    // create streams
-    var base64stream = new JsonObjectWithBase64PropertyStream(baseObject, streamProperty);
-    var block = new BlockStream(chunkSize, {nopad: true});
 
     // At mongodb tools directory, run:
     // $ ./mongofiles put ../README
-    file = new mongo.GridStore(db, '../README', "r");
+    var file = new mongo.GridStore(db, '../README', "r");
     file.open(function(err, file) {
-        var filestream = file.stream(true);
 
-        filestream.on('close', function(){
-            //file.close();
-        });
+        // create streams
+        var filestream = file.stream(true),
+            block = new BlockStream(chunkSize, {nopad: true}),
+            base64stream = new JsonObjectWithBase64PropertyStream(baseObject, streamProperty);
 
         // pipe streams
         filestream
@@ -88,21 +81,8 @@ function handleRequest(req, res) {
     });
 }
 
-
-var
-    logLength = es.mapSync(function(data){
-        console.log(data.length);
-        return data;
-    }),
-    logData = es.mapSync(function (data) {
-        //console.log(data.substr(0, 10));
-        console.log(base64encode(data).substr(0, 50));
-        return data;
-    });
-
 var db = new mongo.Db('test', new mongo.Server("127.0.0.1", 27017,
  {auto_reconnect: false, poolSize: 1}), {native_parser: false});
-
 
 db.open(function(err, db) {
 
