@@ -23,7 +23,9 @@ var db = new mongo.Db('test', new mongo.Server("127.0.0.1", 27017,
 
 db.open(function(err, db) {
 
-    file = new mongo.GridStore(db, 'bsondump', "r");
+    // At mongodb tools directory, run:
+    // $ ./mongofiles put ./bsondump
+    var file = new mongo.GridStore(db, 'bsondump', "r");
     file.open(function(err, file) {
         var filestream = file.stream(true);
 

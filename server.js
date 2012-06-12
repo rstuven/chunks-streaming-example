@@ -55,8 +55,11 @@ function JsonObjectWithBase64PropertyStream(baseObject, streamProperty) {
 
 function handleRequest(req, res) {
 
+    var baseObject = {id: 123, code: 200};
+    var streamProperty = 'data';
+
     // create streams
-    var base64stream = new JsonObjectWithBase64PropertyStream({id: 123, code: 200}, 'data'),
+    var base64stream = new JsonObjectWithBase64PropertyStream(baseObject, streamProperty),
         defer = (function(){
             var timeout = 0;
             return function(time) {
