@@ -1,0 +1,27 @@
+{
+  "author": "",
+  "name": "chunks-streaming-example",
+  "version": "0.0.0",
+  "repository": {
+    "url": ""
+  },
+  "dependencies": {
+    "long-stack-traces": "*",
+    "mongodb": "*",
+    "request": "*",
+    "socket.io": "*",
+    "JSONStream": "*",
+    "event-stream": "*",
+    "throttle": "*",
+    "browser-stream": "*",
+    "block-stream": "*",
+    "express": "*",
+    "bufferjs": "*",
+    "bufferedstream": "*"
+  },
+  "devDependencies": {},
+  "optionalDependencies": {},
+  "engines": {
+    "node": "*"
+  }
+}
