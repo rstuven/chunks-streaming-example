@@ -72,7 +72,7 @@ function handleRequest(req, res) {
             };
         })();
 
-    //res.setHeader('Content-Type', 'application/json');
+    res.setHeader('Content-Type', 'application/json');
 
     // pipe streams
     base64stream
@@ -99,3 +99,14 @@ if (true) {
 
 server.listen(1337);
 
+/*
+
+ Try using:
+
+     curl --verbose --no-buffer "http://localhost:1337/"
+
+ ...or:
+
+    node client.js
+
+ */
